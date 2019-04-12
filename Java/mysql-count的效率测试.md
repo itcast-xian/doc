@@ -34,6 +34,18 @@ CREATE TABLE `big` (
 +----------------------+------+
 ```
 
+测试：
+```sql
+set profiling = 1;
+select count(*) from big;
+select count(*) from big;
+select count(*) from big;
+select count(id) from big;
+select count(id) from big;
+select count(id) from big;
+show profiles;
+```
+
 结论：
 ```
 |       22 |   4.53440700 | select count(*) from big  |
