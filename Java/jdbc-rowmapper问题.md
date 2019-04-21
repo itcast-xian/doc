@@ -1,5 +1,5 @@
 # rowMapper问题
-有学员会问到，为什么 jdbcTemplate.query(sql, rowmapper) 的 list 从哪儿来，元素如何被加入 list
+有学员会问到，jdbcTemplate.query(sql, rowmapper) 的 list 从哪儿来，元素如何被加入 list
 
 我是以伪代码方式讲解：
 
