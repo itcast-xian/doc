@@ -82,3 +82,25 @@ p:first-child{
 
 `#a2` 盒子大小为：`box-sizing: border-box` 时
 `#a2` 的真实宽度为 `100(width 包括了padding 和 border)+2*20(margin) = 140`
+
+## 4. 超链接的伪类选择器问题
+定义的顺序是有要求的：
+```html
+<style>
+a:link{
+    color:red;
+}
+a:visited {
+    color:blue;
+}
+a:hover{
+    color:yellow;
+}
+a:active{
+    color:chartreuse;
+}
+</style>
+```
+视频中访问了 # 地址后，超链接的样式变成了 visited，link 的效果就看不到了，如何展示 link 效果呢，有两个办法
+* 将连接地址修改为 `#?t=1`，点击之后，再修改为 `#?t=2`...
+* 火狐：我的足迹-> 历史-> 查看历史记录侧栏，然后搜索`网页名#`，删除即可，其它浏览器类似
