@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.mapper.CourseMapper" >
+
+    <insert id="add" parameterType="course" >
+        INSERT INTO course(NAME,teacher_name,price,description,createtime,updatetime,createuser,updateuser)
+        VALUES(#{name},#{teacherName},#{price},#{description},#{createtime},#{updatetime},#{createuser},#{updateuser})
+    </insert>
+
+    <update id="update" parameterType="course">
+        UPDATE
+            course
+        <set>
+            <if test="name != null and name != ''">
+                NAME = #{name},
+            </if>
+            <if test="teacherName != null and teacherName != ''">
+                teacher_name = #{teacherName},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="updateuser != null">
+                updateuser = #{updateuser},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime}
+            </if>
+        </set>
+        WHERE
+            id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="int">
+        delete from course where id = #{id}
+    </delete>
+
+
+    <!--//NAME,teacher_name,price,description,createtime,updatetime,createuser,updateuser-->
+    <resultMap id="courseMap" type="course">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="teacherName" column="teacher_name"></result>
+        <result property="price" column="price"></result>
+        <result property="description" column="description"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="updatetime" column="updatetime"></result>
+        <result property="createuser" column="createuser"></result>
+        <result property="updateuser" column="updateuser"></result>
+    </resultMap>
+
+    <select id="findList" parameterType="course" resultMap="courseMap">
+        select * from course
+        <where>
+            <if test="name != null and name != ''">
+                NAME like CONCAT('%',#{name},'%')
+            </if>
+            <if test="teacherName != null and teacherName != ''">
+                and teacher_name = #{teacherName}
+            </if>
+        </where>
+    </select>
+
+
+
+    <select id="findOne" parameterType="int" resultMap="courseMap">
+        select * from course where id = #{id}
+    </select>
+
+</mapper>

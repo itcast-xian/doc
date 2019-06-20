@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.mapper.OperationLogMapper" >
+
+    <insert id="insert" parameterType="operationLog">
+        INSERT INTO operation_log(id,return_value,return_class,operate_user,operate_time,param_and_value,operate_class,operate_method,cost_time)
+		VALUES(NULL,#{returnValue},#{returnClass},#{operateUser},#{operateTime},#{paramAndValue},#{operateClass},#{operateMethod},#{costTime})
+    </insert>
+
+</mapper>
