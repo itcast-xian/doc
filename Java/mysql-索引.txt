@@ -1,0 +1,32 @@
+create table aaa(
+   guid int not null,
+   friend int not null,
+   flags tinyint not null,
+   primary key (guid, friend, flags), 
+	
+   /* 索引1. 利用以上三列建立联合主键，适用情况以下查询的加速：
+    where guid=? and friend = ? and flags=?
+    where guid=? and friend = ? 
+    where guid=?
+ */
+   key friend (friend), 
+   /* 索引2. 在friend（括号里面的）列上，建立普通索引（允许重复值），
+	第一个friend是索引名, mysql中 key 和 index 都能作为索引关键字
+	适用以下查询的加速： 
+	where friend = ?  
+       注意，其实没必要，因为已经被【索引4】所覆盖
+   */
+   key guid_flags (guid, flags), 
+   /* 索引3. 给两列建立联合索引 
+	适用以下查询的加速：
+	where guid=? and flags = ? 
+	where guid=? 
+  */
+   key friend_flags (friend, flags) 
+   /* 索引4. 给两列建立联合索引，适用以下查询的加速
+	where friend=? and flags = ? 
+	where friend=? 
+  */
+);
+
+最后的 row_format 是控制每行记录的存储格式 ,   我看了解释是决定了每一行数据的存储格式，比较复杂，如果能不讲就不讲
